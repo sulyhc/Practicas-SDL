@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1476385111 source:c:\users\walter.suarez\documents\pruebasdl\pruebasdl\pruebasdl\test.cpp
+1476468046 source:c:\users\walter.suarez\documents\pruebasdl\pruebasdl\pruebasdl\test.cpp
 	<SDL.h>
 	<stdio.h>
 
@@ -321,4 +321,8 @@
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
+
+1476466878 source:c:\users\walter.suarez\documents\pruebasdl\pruebasdl\pruebasdl\prueba1.cpp
+	<SDL.h>
+	<stdio.h>
 
