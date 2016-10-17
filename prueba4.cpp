@@ -1,12 +1,6 @@
-/*This source code copyrighted by Lazy Foo' Productions (2004-2015)
-and may not be redistributed without written permission.*/
-
-//Using SDL and standard IO
 #include <SDL.h>
 #include <stdio.h>
-
-//Screen dimension constants
-//dimesiones de la pantalla
+#include <windows.h>
 
 const int SCREEN_WIDTH = 780;
 const int SCREEN_HEIGHT = 585;
@@ -17,61 +11,26 @@ SDL_Surface* gScreenSurface = NULL;
 SDL_Surface* gHelloWorld= NULL;
 
 
-
-void testFunction();
+void initMessage();
 
 bool init();
 bool loadMedia();
+
+
 void close();
 
+int main(int argc, char* args[]){
 
-
-int main( int argc, char* args[] )
-{
-
-    testFunction();
-
-    init();
-    if(loadMedia()){
-
-        bool quit = false;
-        SDL_Event e;
-
-        while(!quit){
-
-            while(SDL_PollEvent(&e) != 0){
-                if(e.type == SDL_QUIT){
-                    quit = true;
-                }
-            }
-
-            SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
-            SDL_UpdateWindowSurface( gWindow );
-
-        }
-
-
-
-
-
-
-
-    }
-
-
-
-        close();
-
-
+    initMessage();
     return 0;
+
 }
 
 
 
-
-void testFunction(){
-printf("INICIADO CHE BOLUDO PELOTUDO");
-
+void initMessage(){
+    printf("INICIADO PRUEBA 4 CHE BOLUDO PELOTUDO");
+    Sleep(2000);
 }
 
 bool init(){
@@ -91,6 +50,7 @@ bool init(){
         }
 
         else{
+
             //get window surface
             gScreenSurface = SDL_GetWindowSurface( gWindow );
         }
@@ -130,3 +90,5 @@ void close(){
     SDL_Quit();
 
 }
+
+
