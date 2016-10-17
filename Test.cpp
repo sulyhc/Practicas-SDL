@@ -72,6 +72,5 @@ int main( int argc, char* args[] )
 
 
 void testFunction(){
-printf("INICIADO CHE BOLUDO PELOTUDO");
-
+    printf("INICIADO CHE BOLUDO PELOTUDO");
 }
