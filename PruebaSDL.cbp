@@ -45,7 +45,7 @@
 			<Option compile="0" />
 			<Option link="0" />
 		</Unit>
-		<Unit filename="prueba3.cpp" />
+		<Unit filename="prueba4.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
