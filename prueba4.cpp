@@ -27,7 +27,7 @@ void initMessage();
 
 bool init();
 bool loadMedia();
-void close();
+
 
 SDL_Surface* loadSurface( std::string path );
 SDL_Window* gWindow = NULL;
@@ -39,8 +39,9 @@ SDL_Surface* gKeyPressSurfaces[KEY_PRESS_SURFACE_TOTAL];
 //current displayed image
 SDL_Surface* gCurrentSurface = NULL;
 
+void close();
 
-
+void clearScreen();
 
 int main(int argc, char* args[]){
 
@@ -48,11 +49,24 @@ int main(int argc, char* args[]){
         printf("FALLAMOS");
     }else{
 
+        if(!loadMedia()){
+            printf("NO SE PUDO CARGAR NADA DE NADA MORRO");
+        }
+        else{
+
         bool quit = false;
 
-        SDL_Event = e;
+        SDL_Event e;
 
         gCurrentSurface = gKeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT];
+
+        //init with default image
+        SDL_BlitSurface(gCurrentSurface, NULL, gScreenSurface, NULL);
+
+        SDL_UpdateWindowSurface( gWindow );
+
+
+        //main bucle
 
         while(!quit){
 
@@ -63,7 +77,7 @@ int main(int argc, char* args[]){
                 }
 
                 else if(e.type == SDL_KEYDOWN){
-
+                    clearScreen();
                     switch(e.key.keysym.sym){
 
                     case SDLK_UP:
@@ -74,15 +88,25 @@ int main(int argc, char* args[]){
                         gCurrentSurface = gKeyPressSurfaces[KEY_PRESS_SURFACE_DOWN];
                         break;
 
-                    case SDLK_DOWN:
-                        gCurrentSurface = gKeyPressSurfaces[KEY_PRESS_SURFACE_DOWN];
+                    case SDLK_LEFT:
+                        gCurrentSurface = gKeyPressSurfaces[KEY_PRESS_SURFACE_LEFT];
                         break;
 
-                    case SDLK_DOWN:
-                        gCurrentSurface = gKeyPressSurfaces[KEY_PRESS_SURFACE_DOWN];
+                    case SDLK_RIGHT:
+                        gCurrentSurface = gKeyPressSurfaces[KEY_PRESS_SURFACE_RIGHT];
                         break;
+
+                    default:
+                        gCurrentSurface = gKeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT];
+                        break;
+
 
                     }
+
+                    SDL_BlitSurface(gCurrentSurface, NULL, gScreenSurface, NULL);
+
+                    SDL_UpdateWindowSurface( gWindow );
+
 
                 }
 
@@ -91,6 +115,9 @@ int main(int argc, char* args[]){
         }
 
 
+        close();
+    }
+
     }
 
 }
@@ -98,7 +125,8 @@ int main(int argc, char* args[]){
 SDL_Surface* loadSurface(std::string path){
 
     //load image at specified path
-    SDL_Surface* loadedSurface = SDL_loadBMP( path.c_str() );
+    SDL_Surface* loadedSurface = SDL_LoadBMP( path.c_str() );
+    printf(path.c_str());
     if( loadedSurface == NULL ){
          printf( "Unable to load image %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
     }
@@ -124,7 +152,7 @@ bool init(){
     }
     else{
         //SDL Window
-        gWindow = SDL_CreateWindow("TUTORIAL PARTE 2", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+        gWindow = SDL_CreateWindow("TUTORIAL PARTE 4", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
         if( gWindow == NULL ){
             printf("NO SE PUDO CREAR LA VENTANA CON SDL");
             success = false;
@@ -146,7 +174,7 @@ bool init(){
 bool loadMedia(){
 
     bool success = true;
-    str::string folder = "img/";
+    std::string foler = "img/";
 
     //default surface
     gKeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT] =  loadSurface(foler + "test.bmp" );
@@ -186,7 +214,7 @@ bool loadMedia(){
 
     //check if exists error
     if(!success){
-        printf(status);
+        printf("NO SE PUDO CARGAR NI MADRES, REVISA TU CODIGO NO SEAS PENDEJO");
     }
 
 
@@ -194,16 +222,34 @@ bool loadMedia(){
 
 }
 
+
 void close(){
 
-    SDL_FreeSurface( gHelloWorld );
-    gHelloWorld = NULL;
+    printf("CERRANDO LA PRUEBA CHE BOLUDO");
 
-    SDL_DestroyWindow( gWindow );
+    for(int i = 0; i < KEY_PRESS_SURFACE_TOTAL; i++){
+
+        SDL_FreeSurface(gKeyPressSurfaces[i]);
+        gKeyPressSurfaces[i] = NULL;
+
+    }
+
+    SDL_DestroyWindow(gWindow);
     gWindow = NULL;
-
+    printf("HASTA LUEGO ESOS");
     SDL_Quit();
 
 }
+
+void clearScreen(){
+
+   gCurrentSurface = gKeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT];
+
+   SDL_BlitSurface(gCurrentSurface, NULL, gScreenSurface, NULL);
+
+    SDL_UpdateWindowSurface( gWindow );
+
+}
+
 
 
