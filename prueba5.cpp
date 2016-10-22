@@ -1,6 +1,5 @@
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <stdio.h>
-#include <windows.h>
 #include <string>
 
 const int SCREEN_WIDTH = 780;
@@ -168,7 +167,7 @@ SDL_Surface* loadSurface(std::string path){
 
 void initMessage(){
     printf("INICIADO PRUEBA 5 CHE BOLUDO PELOTUDO");
-    Sleep(2000);
+//    Sleep(2000);
 }
 
 bool init(){
